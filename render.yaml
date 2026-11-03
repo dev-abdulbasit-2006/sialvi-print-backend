@@ -1,0 +1,30 @@
+# Render Blueprint for the Sialvi licensing service.
+# IMPORTANT: Render's free tier has an EPHEMERAL disk and sleeps when idle. Without DATABASE_URL the licensing data
+# lives in a temporary SQLite file and is LOST on every restart/sleep ("installation not recognized" the next day).
+# Set DATABASE_URL to a persistent PostgreSQL database (e.g. a free Neon database). See documentation/ACTIVATION_GUIDE.md.
+services:
+  - type: web
+    name: sialvi-print-backend
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    # One worker: the rate limiter and SQLite writes are per-process.
+    startCommand: gunicorn app:app --workers 1 --threads 4 --timeout 60 --bind 0.0.0.0:$PORT
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.3"
+      - key: LICENSE_DATA_DIR
+        value: /tmp/sialvi-license          # ephemeral on the free tier (see warning above)
+      - key: LICENSE_TRUSTED_PROXIES        # Render's load balancer -> app (private ranges); UNVERIFIED, confirm in logs
+        value: "10.0.0.0/8,172.16.0.0/12"
+      - key: DATABASE_URL                   # postgresql://... connection string of the persistent database (SECRET)
+        sync: false
+      - key: LICENSE_KEY_PEPPER             # python -m licensing.server render-secrets
+        sync: false
+      - key: LICENSE_SIGNING_KEY_PEM        # python -m licensing.server render-secrets
+        sync: false
+      - key: LICENSE_OWNER_USERNAME         # free tier has no shell: the owner login is created from these at start-up
+        sync: false
+      - key: LICENSE_OWNER_PASSWORD         # secret, min 10 characters; remove both once the database is persistent
+        sync: false

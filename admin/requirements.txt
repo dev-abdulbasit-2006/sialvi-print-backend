@@ -1,0 +1,26 @@
+# Core server
+Flask==3.0.3
+
+# Windows printer integration (Windows-only; not installable on Linux/Mac)
+pywin32==306; sys_platform == "win32"
+
+# PDF page counting + silent printing (page rendering)
+PyMuPDF==1.24.9
+Pillow>=10.3,<12
+
+# PPTX page (slide) counting
+python-pptx==0.6.23
+
+# Admin desktop UI (Phase 2)
+PySide6==6.7.2
+requests==2.32.3
+
+# Packaging (Phase 4)
+pyinstaller==6.10.0
+
+# Adobe/AutoCAD design-file rendering (.psd/.ai/.dxf and DWG via ODA -> DXF)
+ezdxf==1.4.4
+matplotlib==3.10.6
+
+# Owner licensing (Ed25519 signature check of the license token)
+cryptography>=42,<47

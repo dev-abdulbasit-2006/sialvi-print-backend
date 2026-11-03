@@ -1,0 +1,7 @@
+# Licensing server + client library + Owner License Manager
+Flask==3.0.3
+cryptography>=42,<47
+requests==2.32.3
+waitress>=3.0,<4          # production WSGI server (put an HTTPS reverse proxy in front)
+PySide6==6.7.2            # Owner License Manager desktop app only
+pyinstaller==6.10.0       # building the owner app only

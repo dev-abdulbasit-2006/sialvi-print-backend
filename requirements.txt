@@ -1,0 +1,5 @@
+# Cloud licensing service (Render). Desktop apps use admin/, user/, owner/ requirements instead.
+Flask>=3.0,<4
+cryptography>=42
+gunicorn>=22
+psycopg2-binary>=2.9        # PostgreSQL: persistent storage (set DATABASE_URL)

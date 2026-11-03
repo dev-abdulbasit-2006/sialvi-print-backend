@@ -1,0 +1,20 @@
+PySide6==6.7.2
+requests==2.32.3
+
+# PDF preview in the kiosk
+PyMuPDF==1.24.9
+
+# Word (.docx) / PowerPoint (.pptx) preview in the kiosk (built-in fallback
+# used when LibreOffice isn't installed on the User PC; see user/ui/preview.py)
+python-docx==1.1.2
+python-pptx==0.6.23
+
+# Packaging (Phase 4)
+pyinstaller==6.10.0
+
+# Local Windows printer routing / native driver settings
+pywin32==306; sys_platform == "win32"
+Pillow>=10.3,<12
+
+# Owner licensing (Ed25519 signature check of the license token)
+cryptography>=42,<47

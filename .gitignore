@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+build/
+dist/
+dist_owner*/
+installer/Output/
+*.log
+.env
+license_state.json
